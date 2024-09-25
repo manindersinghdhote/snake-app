@@ -1,7 +1,8 @@
-version: '3.3'
+
+version: '3.8'
 services:
   snake:
-    image: 'amrit96/snake'
+    image: 'manindersinghdhote/snake'
     environment:
       - "PORT:3000"
     ports:
