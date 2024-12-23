@@ -8,7 +8,7 @@ pipeline {
         K8_NAMESPACE = "default"  // Change if you want a different namespace
         K8_SERVICE_NAME = "snake-app-service-new"  // Service name for the exposed app
         K8_NODE_PORT = 30001  // Desired NodePort (must be in the range 30000-32767)
-        K8_CONTEXT_NAME = kubernetes-admin@kubernetes // Context Name
+        K8_CONTEXT_NAME = "kubernetes-admin@kubernetes" // Context Name
     }
 
     stages {
