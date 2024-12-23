@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "manindersinghdhote/snake"
         K8_CLUSTER_NAME = "kubernetes"
-        K8_DEPLOYMENT_NAME = "snake-app"
+        K8_DEPLOYMENT_NAME = "snake-app-New"
         K8_NAMESPACE = "default"  // change if you want a different namespace
     }
 
