@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "manindersinghdhote/snake"
+        K8_CLUSTER_NAME = "kubernetes"
+        K8_DEPLOYMENT_NAME = "snake-app"
+        K8_NAMESPACE = "default"  // change if you want a different namespace
+    }
+
+    stages {
+        stage('Pull Docker Image from DockerHub') {
+            steps {
+                script {
+                    // Pull the image from Docker Hub (optional step since Kubernetes handles pulling)
+                    echo "Pulling Docker image ${DOCKER_IMAGE} from DockerHub"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Deploy the Docker image to Kubernetes
+                    withKubeConfig([credentialsId: 'kube-config', context: K8_CLUSTER_NAME]) {
+                        sh """
+                        kubectl set image deployment/${K8_DEPLOYMENT_NAME} ${K8_DEPLOYMENT_NAME}=${DOCKER_IMAGE}:latest --namespace=${K8_NAMESPACE}
+                        kubectl rollout status deployment/${K8_DEPLOYMENT_NAME} --namespace=${K8_NAMESPACE}
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment to Kubernetes was successful!"
+        }
+        failure {
+            echo "There was a problem with the pipeline execution!"
+        }
+    }
+}
