@@ -25,7 +25,7 @@ pipeline {
                     withKubeConfig([credentialsId: 'kube-config', context: K8_CLUSTER_NAME]) {
                         sh """
                 kubectl create deployment ${K8_DEPLOYMENT_NAME} --image=${DOCKER_IMAGE}:latest --namespace=${K8_NAMESPACE} || echo "Deployment already exists"
-                kubectl set image deployment/${K8_DEPLOYMENT_NAME} ${K8_DEPLOYMENT_NAME}=${DOCKER_IMAGE}:latest --namespace=${K8_NAMESPACE}
+                kubectl set image deployment/${K8_DEPLOYMENT_NAME} snake=${DOCKER_IMAGE}:latest --namespace=${K8_NAMESPACE}
                 kubectl rollout status deployment/${K8_DEPLOYMENT_NAME} --namespace=${K8_NAMESPACE}
 
                         """
