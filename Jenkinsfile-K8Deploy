@@ -39,7 +39,7 @@ pipeline {
                         kubectl rollout status deployment/${K8_DEPLOYMENT_NAME} --namespace=${K8_NAMESPACE}
                         
                         # Expose the deployment as a NodePort service
-                        kubectl expose deployment ${K8_DEPLOYMENT_NAME} --type=NodePort --name=${K8_SERVICE_NAME} --namespace=${K8_NAMESPACE} --port=80 --target-port=3000 --node-port=${K8_NODE_PORT} || echo "Service already exists"
+                        kubectl expose deployment ${K8_DEPLOYMENT_NAME} --type=NodePort --name=${K8_SERVICE_NAME} --namespace=${K8_NAMESPACE} --port=80 --target-port=3000 || echo "Service already exists"
                         """
                     }
                 }
