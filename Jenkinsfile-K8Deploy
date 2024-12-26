@@ -40,6 +40,8 @@ pipeline {
                         
                         # Expose the deployment as a NodePort service
                         kubectl expose deployment ${K8_DEPLOYMENT_NAME} --type=NodePort --name=${K8_SERVICE_NAME} --namespace=${K8_NAMESPACE} --port=80 --target-port=3000 || echo "Service already exists"
+                        
+                        kubectl patch service ${K8_SERVICE_NAME} --namespace=${K8_NAMESPACE} -p '{"spec": {"ports": [{"port": 80, "targetPort": 3000, "nodePort": 30001}]}}'
                         """
                     }
                 }
